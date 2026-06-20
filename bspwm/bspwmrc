@@ -1,0 +1,34 @@
+#!/bin/sh
+# Start the keybinding daemon (The Voice)
+pgrep -x sxhkd > /dev/null || sxhkd &
+picom --config ~/.config/picom/picom.conf -b &
+
+$HOME/.config/polybar/launch.sh &
+$HOME/.config/polybar/hide_polybar.sh &
+# 2. Launch Bar
+# Define 9 Workspaces
+bspc monitor -d 1 2 3 4 5 6 7 
+
+# Configuration: Minimalist & Endeavour Colors
+bspc config border_width         2
+bspc config window_gap           2
+bspc config focused_border_color "#7f7fd5"
+bspc config normal_border_color  "#2e3440"
+
+# 4. Behavior
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# Workspace names (I to V)
+bspc monitor -d I II III IV V VI VII 
+
+# Tell bspwm to manage certain apps in specific ways
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kitty desktop='^1'
+
+# 6. Wallpaper & Cursor
+# Use pywal to set the wallpaper and generate colors on 
+feh --bg-fill /home/nova/Pictures/Wallpapers/tokyo.jpg 
+xsetroot -cursor_name left_ptr &
+mpd &

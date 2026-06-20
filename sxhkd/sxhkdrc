@@ -1,0 +1,81 @@
+# --- TERMINAL & LAUNCHER ---
+
+# Open Terminal (Kitty)
+super + Return
+    kitty
+
+#Open Browser
+super + b
+    firefox
+
+#screenshot
+super + s
+    scrot ~/Pictures/screenshots/%Y-%m-%d_%H-%M-%S.png
+# Open Launcher (dmenu themed to Endeavour)
+super + d
+    rofi -show drun -nb '#2e3440' -nf '#7f7fd5' -sb '#7f7fd5' -sf '#2e3440' -fn 'JetBrainsMono Nerd Font-11'
+
+# --- WINDOW MANAGEMENT ---#
+
+# Close window
+super + q
+    bspc node -c
+
+# Toggle Fullscreen
+super + f
+    bspc node -t \~fullscreen
+
+# Alternate between tiled and monocle (fullscreen-ish) mode
+super + m
+    bspc desktop -l next
+
+super + z
+    pkill magnus || magnus
+
+# Focus windows (Vim keys)
+super + {h,j,k,l}
+    bspc node -f {west,south,north,east}
+
+#resize windowz
+super + alt + {h,j,k,l}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# Swap windows (Vim keys)
+super + shift + {h,j,k,l}
+    bspc node -s {west,south,north,east}
+
+# --- WORKSPACE MANAGEMENT (1-9) ---
+
+# Switch to workspace 1-9
+super + {1-9}
+    bspc desktop -f '^{1-9}'
+
+# Move window to workspace 1-9
+super + shift + {1-9}
+    bspc node -d '^{1-9}'
+
+# --- SYSTEM CONTROL ---
+
+# Reload sxhkd (Apply changes instantly)
+super + Escape
+    pkill -USR1 -x sxhkd
+
+# Exit bspwm 
+super + alt + q
+    bspc quit
+# Volume Up
+XF86AudioRaiseVolume
+    amixer set Master 5%+
+# Volume Down
+XF86AudioLowerVolume
+    amixer set Master 5%-
+# Mute
+XF86AudioMute
+    amixer set Master toggle
+
+# Increase brightness
+XF86MonBrightnessUp
+    brightnessctl set +5%
+
+# Decrease brightness
+XF86MonBrightnessDown
+    brightnessctl set 5%-
